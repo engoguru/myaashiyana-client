@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@media (max-width: 640px) {
+    .xs\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0);}
+  20%, 60% { transform: translateX(-2px);}
+  40%, 80% { transform: translateX(2px);}
+}
+.animate-shake {
+  animation: shake 1.2s infinite;
+}
+html, body {
+  width: 100%;
+  overflow-x: hidden !important;
+}
