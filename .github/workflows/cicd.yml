@@ -46,8 +46,5 @@ jobs:
           docker run -d -p 5174:80 \
             --name client-service \
             --restart unless-stopped \
+            -e VITE_RAZORPAY_KEY_ID=${{ secrets.VITE_RAZORPAY_KEY_ID }} \
             ${{ secrets.DOCKER_USERNAME }}/client:${{ github.sha }}
-            ${{ secrets.VITE_RAZORPAY_KEY_ID }}/client:${{ github.sha }}
-
-
-
