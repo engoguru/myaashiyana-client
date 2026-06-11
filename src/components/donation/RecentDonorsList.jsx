@@ -8,19 +8,20 @@ const rankStyles = [
   { bg: "bg-blue-50",   border: "border-blue-200",   text: "text-blue-400",   icon: <FaMedal className="text-blue-300" />,   label: "4th" },
 ];
 
-const RecentDonorsList = ({ donations, fetchingDonors }) => {
+const RecentDonorsList = ({ donations, fetchingDonors,today }) => {
   // Top 4 donors by total amount donated
-  const topDonors = Object.values(
-    (donations || []).reduce((acc, d) => {
-      const key = d.name?.trim().toLowerCase();
-      if (!key) return acc;
-      if (!acc[key]) acc[key] = { name: d.name, total: 0 };
-      acc[key].total += d.amount || 0;
-      return acc;
-    }, {})
-  )
-    .sort((a, b) => b.total - a.total)
-    .slice(0, 4);
+  // const topDonors = Object.values(
+  //   (donations || []).reduce((acc, d) => {
+  //     const key = d.name?.trim().toLowerCase();
+  //     if (!key) return acc;
+  //     if (!acc[key]) acc[key] = { name: d.name, total: 0 };
+  //     acc[key].total += d.amount || 0;
+  //     return acc;
+  //   }, {})
+  // )
+  //   .sort((a, b) => b.total - a.total)
+  //   .slice(0, 4);
+    // console.log(donations,today,"erp")
   return (
     <div className="w-full xl:w-[30%] space-y-6 md:space-y-8 sticky top-4 self-start">
       <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
@@ -80,7 +81,7 @@ const RecentDonorsList = ({ donations, fetchingDonors }) => {
       </div>
 
       {/* ── Top Donors Card ── */}
-      {topDonors.length > 0 && (
+      {today.length > 0 && (
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
           <div className="h-2 bg-gradient-to-r from-yellow-400 via-yellow-500 to-orange-400"></div>
           <div className="p-5 md:p-6">
@@ -90,7 +91,7 @@ const RecentDonorsList = ({ donations, fetchingDonors }) => {
             </h3>
 
             <ul className="space-y-3">
-              {topDonors.map((donor, index) => {
+              {today?.map((donor, index) => {
                 const style = rankStyles[index];
                 return (
                   <li

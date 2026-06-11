@@ -14,6 +14,8 @@ import NeedsCarousel from "./NeedsCarousel";
 
 const DonateNow = () => {
   const [donations, setDonations] = useState([]);
+    const [todaydonations, setTodaydonations] = useState([]);
+
   const [fetchingDonors, setFetchingDonors] = useState(true);
 
   /* ================= PRODUCT STATE ================= */
@@ -27,8 +29,10 @@ const DonateNow = () => {
 
   const fetchRecentDonors = async () => {
     try {
-      const { data } = await axios.get(`${base_url}/donation/`);
-      setDonations(data || []);
+      const { data } = await axios.get(`${base_url}/donation/top/new`);
+      // console.log(data,"opo")
+      setDonations(data?.donations || []);
+      setTodaydonations(data?.todayDonations || [])
       setFetchingDonors(false);
     } catch (error) {
       console.error("Error fetching donors:", error);
@@ -163,6 +167,7 @@ const DonateNow = () => {
         {/* RIGHT */}
         <RecentDonorsList
           donations={donations}
+          today={todaydonations}
           fetchingDonors={fetchingDonors}
         />
       </div>
